@@ -37,24 +37,10 @@ class Homeprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  // edit(
-  //     {required id, required String title, required String description}) async {
-  //   final toModel = Model(title: title, description: description, id: id);
-  //   await ApiService().editNotes(value: toModel, id: id);
-  //   notifyListeners();
-  // }
-  Future<bool> edit(
-      {required String id,
-      required String title,
-      required String description}) async {
-    try {
-      final toModel = Model(title: title, description: description, id: id);
-      await ApiService().editNotes(value: toModel, id: id);
-      notifyListeners();
-      return true; // Return true if editing was successful
-    } catch (e) {
-      print("Error editing note: $e");
-      return false; // Return false if editing failed
-    }
+  edit(
+      {required id, required String title, required String description}) async {
+    final toModel = Model(title: title, description: description, id: id);
+    await ApiService().editNotes(value: toModel, id: id);
+    notifyListeners();
   }
 }

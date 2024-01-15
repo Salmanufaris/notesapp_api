@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
       child: const MaterialApp(
         title: 'Todo App',
         home: ListPage(),
-        // theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
       ),
     );

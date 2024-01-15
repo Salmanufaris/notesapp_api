@@ -13,8 +13,7 @@ class ApiService {
         var jsonList = response.data as List;
 
         List<Model> notes = jsonList.map((json) {
-          return Model.fromJson(
-              json); // Ensure Model.fromJson is correctly implemented
+          return Model.fromJson(json);
         }).toList();
         return notes;
       } else {

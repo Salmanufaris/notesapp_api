@@ -37,7 +37,7 @@ class _EditpageState extends State<Editpage> {
   }
 
   AlertDialog YourAlertDialog() {
-    final pro = Provider.of<Homeprovider>(context);
+    final pro = Provider.of<Homeprovider>(context, listen: false);
     return AlertDialog(
       titleTextStyle: const TextStyle(
           fontWeight: FontWeight.bold, fontSize: 27, color: Colors.black),
