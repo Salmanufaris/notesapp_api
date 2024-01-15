@@ -19,15 +19,16 @@ class ListPage extends StatelessWidget {
         centerTitle: true,
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () {
-            Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const AddScreen()));
-          },
-          label: const Text("go to add page")),
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) => const AddScreen()),
+          );
+        },
+        label: const Text("Go to add page"),
+      ),
       body: Consumer<Homeprovider>(
         builder: (context, pro, child) {
           if (pro.noteList.isEmpty) {
-            // Load notes only if the list is empty
             pro.loadnotes();
             return const Center(child: CircularProgressIndicator());
           } else {
@@ -39,34 +40,40 @@ class ListPage extends StatelessWidget {
                   children: [
                     Card(
                       child: ListTile(
-                          title: Text(data.title ?? ""),
-                          subtitle: Text(data.description ?? ""),
-                          trailing: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context).push(
-                                        MaterialPageRoute(
-                                            builder: (context) => Editpage(
-                                                title: data.title,
-                                                description: data.description,
-                                                id: data.id)));
-                                  },
-                                  icon: const Icon(
-                                    Icons.edit,
-                                    color: Colors.green,
-                                  )),
-                              IconButton(
-                                  onPressed: () {
-                                    pro.deletenotes(id: data.id);
-                                  },
-                                  icon: const Icon(
-                                    Icons.delete,
-                                    color: Colors.red,
-                                  )),
-                            ],
-                          )),
+                        title: Text(data.title ?? ""),
+                        subtitle: Text(data.description ?? ""),
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) => Editpage(
+                                      title: data.title,
+                                      description: data.description,
+                                      id: data.id,
+                                    ),
+                                  ),
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.green,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                showDeleteDialog(context, data.id.toString());
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                     )
                   ],
                 );
@@ -75,6 +82,40 @@ class ListPage extends StatelessWidget {
           }
         },
       ),
+    );
+  }
+
+  showDeleteDialog(BuildContext context, String id) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text("Delete "),
+          content: const Text("Are you sure you want to delete?"),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "No",
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                Provider.of<Homeprovider>(context, listen: false)
+                    .deletenotes(id: id);
+                Navigator.of(context).pop();
+              },
+              child: const Text(
+                "Yes",
+                style: TextStyle(color: Colors.red),
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

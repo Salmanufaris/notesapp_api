@@ -34,7 +34,7 @@ class _AddScreenState extends State<AddScreen> {
                 controller: pro.descriptionController,
                 decoration: const InputDecoration(hintText: "Description"),
                 maxLength: 5,
-                maxLines: 5,
+                maxLines: 4,
               ),
               const SizedBox(
                 height: 10,

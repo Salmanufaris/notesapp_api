@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_todo/model/model.dart';
 import 'package:flutter_application_todo/service/service.dart';
@@ -23,6 +25,8 @@ class Homeprovider extends ChangeNotifier {
     await ApiService()
         .createnotes(Model(title: name, description: description, id: ""));
     loadnotes();
+    titleController.text = "";
+    descriptionController.text = "";
 
     notifyListeners();
   }
@@ -33,18 +37,24 @@ class Homeprovider extends ChangeNotifier {
     notifyListeners();
   }
 
-  updatenotes({required id}) async {
-    var titleEdit = titleController.text;
-    var descriptionEdit = descriptionController.text;
-
-    await ApiService().editnotes(
-      id: id,
-      value: Model(title: titleEdit, description: descriptionEdit, id: id),
-    );
-
-    // After updating the note, fetch the updated list of notes
-    await loadnotes();
-
-    notifyListeners();
+  // edit(
+  //     {required id, required String title, required String description}) async {
+  //   final toModel = Model(title: title, description: description, id: id);
+  //   await ApiService().editNotes(value: toModel, id: id);
+  //   notifyListeners();
+  // }
+  Future<bool> edit(
+      {required String id,
+      required String title,
+      required String description}) async {
+    try {
+      final toModel = Model(title: title, description: description, id: id);
+      await ApiService().editNotes(value: toModel, id: id);
+      notifyListeners();
+      return true; // Return true if editing was successful
+    } catch (e) {
+      print("Error editing note: $e");
+      return false; // Return false if editing failed
+    }
   }
 }

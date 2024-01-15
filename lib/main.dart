@@ -14,9 +14,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => Homeprovider(),
-      child: MaterialApp(
+      child: const MaterialApp(
         title: 'Todo App',
-        home: const ListPage(),
+        home: ListPage(),
         // theme: ThemeData.dark(),
         debugShowCheckedModeBanner: false,
       ),

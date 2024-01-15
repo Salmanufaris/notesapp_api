@@ -1,3 +1,5 @@
+// ignore_for_file: sized_box_for_whitespace, non_constant_identifier_names, prefer_typing_uninitialized_variables
+
 import 'package:flutter/material.dart';
 import 'package:flutter_application_todo/controller/provider.dart';
 import 'package:provider/provider.dart';
@@ -37,9 +39,9 @@ class _EditpageState extends State<Editpage> {
   AlertDialog YourAlertDialog() {
     final pro = Provider.of<Homeprovider>(context);
     return AlertDialog(
-      titleTextStyle: TextStyle(
+      titleTextStyle: const TextStyle(
           fontWeight: FontWeight.bold, fontSize: 27, color: Colors.black),
-      title: Text(
+      title: const Text(
         'Add Notes',
         textAlign: TextAlign.center,
       ),
@@ -50,12 +52,12 @@ class _EditpageState extends State<Editpage> {
             children: [
               TextField(
                 controller: titleController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Title",
                   border: OutlineInputBorder(),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 10,
               ),
               TextField(
@@ -63,7 +65,7 @@ class _EditpageState extends State<Editpage> {
                 maxLines: 7,
                 keyboardType: TextInputType.multiline,
                 controller: descriptionController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   hintText: "Description",
                   border: OutlineInputBorder(),
                 ),
@@ -75,12 +77,13 @@ class _EditpageState extends State<Editpage> {
       actions: [
         TextButton(
           onPressed: () {
-            pro.updatenotes(
-              id: widget.id,
-            );
+            pro.edit(
+                id: widget.id,
+                title: titleController.text,
+                description: descriptionController.text);
             Navigator.of(context).pop();
           },
-          child: Text(
+          child: const Text(
             'Save',
             style: TextStyle(color: Colors.black),
           ),
@@ -89,7 +92,7 @@ class _EditpageState extends State<Editpage> {
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: Text(
+          child: const Text(
             'Cancel',
             style: TextStyle(color: Colors.red),
           ),

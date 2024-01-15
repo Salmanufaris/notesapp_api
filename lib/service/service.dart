@@ -44,13 +44,13 @@ class ApiService {
     }
   }
 
-  editnotes({required Model value, required id}) async {
+  editNotes({required value, required id}) async {
     try {
       await dio.put(
           "https://65a123b4600f49256fb0fff8.mockapi.io/NOTES/Notes/$id",
           data: value.toJson());
-    } catch (error) {
-      throw Exception(error);
+    } catch (e) {
+      throw Exception(e);
     }
   }
 }
